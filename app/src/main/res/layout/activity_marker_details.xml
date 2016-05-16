@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Marker Details"
-            android:textSize="50px"
+            android:textSize="80px"
+            android:layout_margin="10px"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -36,7 +37,7 @@
                 android:layout_weight="3"
                 android:paddingLeft="40px"
                 android:text="Location:32/A jump Street"
-                android:textSize="30px" />
+                android:textSize="50px" />
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
@@ -45,7 +46,7 @@
                 android:paddingLeft="40px"
                 android:textColor="@color/common_red_txt"
                 android:text="Date:14/13/2016"
-                android:textSize="30px" />
+                android:textSize="50px" />
 
 
         </LinearLayout>
@@ -54,6 +55,7 @@
             android:id="@+id/image_upload"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="50px"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -62,6 +64,7 @@
             android:layout_height="wrap_content"
             android:text="ArtType"
             android:paddingLeft="40px"
+            android:textSize="50px"
             android:layout_marginBottom="60px" />
 
         <TextView
@@ -81,10 +84,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="40px"
             android:text="description"
+            android:textSize="50px"
             android:paddingLeft="40px" />
-
-
-
     </LinearLayout>
-
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="GET DIRECTION ON MAP"
+    android:layout_alignParentBottom="true"
+    android:textStyle="bold"
+    android:layout_margin="10dp"/>
 </RelativeLayout>

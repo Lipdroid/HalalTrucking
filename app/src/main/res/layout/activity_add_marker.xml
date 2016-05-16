@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="Location:32/A jump Street"
-                android:textSize="30px" />
+                android:textSize="50px" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
                 android:gravity="center"
                 android:text="EDIT"
                 android:textColor="@color/common_red_txt"
-                android:textSize="30px"
+                android:textSize="50px"
                 android:textStyle="bold" />
         </LinearLayout>
 

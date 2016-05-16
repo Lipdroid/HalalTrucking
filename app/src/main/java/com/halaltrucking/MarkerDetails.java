@@ -1,6 +1,7 @@
 package com.halaltrucking;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
@@ -32,6 +33,7 @@ public class MarkerDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_marker_details);
         location = (TextView) findViewById(R.id.tv_location);
         date = (TextView) findViewById(R.id.date);

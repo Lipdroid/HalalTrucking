@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -36,6 +37,7 @@ import com.halaltrucking.models.MarkerObject;
 import com.halaltrucking.models.MyItem;
 import com.halaltrucking.utils.GlobalUtils;
 import com.halaltrucking.utils.MultipleScreen;
+import com.halaltrucking.utils.OwnIconRendered;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -167,6 +169,20 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
 
         }
         try {
+            mGoogleMap.setMyLocationEnabled(true);
+        } catch (SecurityException e) {
+            Toast.makeText(getActivity(), "Something wrong with the GPS", Toast.LENGTH_LONG).show();
+        }
+        try {
+            //move the my position button
+//            View mapView = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map)).getView();
+//            View btnMyLocation = ((View) mapView.findViewById(1).getParent()).findViewById(2);
+//            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(150,150); // size of button in dp
+//            params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+//            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+//            params.setMargins(20, 20, 20, 20);
+//            btnMyLocation.setLayoutParams(params);
+
             mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
                 public void onInfoWindowClick(Marker marker) {
@@ -296,11 +312,14 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
         mGoogleMap.setOnCameraChangeListener(GlobalUtils.mClusterManager);
         mGoogleMap.setOnMarkerClickListener(GlobalUtils.mClusterManager);
         mGoogleMap.setOnInfoWindowClickListener(GlobalUtils.mClusterManager);
+
         GlobalUtils.mClusterManager.setOnClusterClickListener(this);
         GlobalUtils.mClusterManager.setOnClusterInfoWindowClickListener(this);
         GlobalUtils.mClusterManager.setOnClusterItemClickListener(this);
         GlobalUtils.mClusterManager.setOnClusterItemInfoWindowClickListener(this);
         GlobalUtils.mClusterManager.setOnClusterClickListener(this);
+        //for different icons in maps
+        GlobalUtils.mClusterManager.setRenderer(new OwnIconRendered(getActivity().getApplicationContext(), mGoogleMap, GlobalUtils.mClusterManager));
 
 
     }

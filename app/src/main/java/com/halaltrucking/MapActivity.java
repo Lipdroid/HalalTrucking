@@ -2,6 +2,7 @@ package com.halaltrucking;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.location.Address;
@@ -51,6 +52,7 @@ public class MapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_map);
         marker_img = (ImageView) findViewById(R.id.marker);
         submit = (Button) findViewById(R.id.submit);

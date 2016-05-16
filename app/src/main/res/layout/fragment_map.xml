@@ -15,7 +15,7 @@
             android:layout_below="@+id/rl_search"
             map:cameraTargetLat="41.259239"
             map:cameraTargetLng="-95.9351567"
-            map:cameraZoom="3"
+            map:cameraZoom="7"
             map:mapType="normal" />
 
 
@@ -34,10 +34,13 @@
 
     <RelativeLayout
         android:id="@+id/rl_search"
-        android:layout_width="match_parent"
+        android:layout_width="850px"
         android:layout_height="144px"
         android:layout_alignParentTop="true"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/round">
 
         <LinearLayout
