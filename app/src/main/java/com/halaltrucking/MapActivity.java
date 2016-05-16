@@ -103,10 +103,16 @@ public class MapActivity extends AppCompatActivity {
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_default)));
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 7));
                 //mMap is an instance of GoogleMap
-                mGoogleMap.setOnCameraChangeListener(getCameraChangeListener());
+               // mGoogleMap.setOnCameraChangeListener(getCameraChangeListener());
 
             } else {
-                mGoogleMap.setMyLocationEnabled(true);
+                try {
+                    mGoogleMap.setMyLocationEnabled(true);
+                } catch (SecurityException e) {
+                    Toast.makeText(this,"Something wrong with the GPS",Toast.LENGTH_LONG).show();
+                }
+
+
                 Location location = getLastKnownLocation();
                 if (location != null) {
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -120,29 +126,29 @@ public class MapActivity extends AppCompatActivity {
         mCorrectSize = CorrectSizeUtil.getInstance(this);
         mCorrectSize.correctSize();
     }
-
-    public GoogleMap.OnCameraChangeListener getCameraChangeListener()
-    {
-        return new GoogleMap.OnCameraChangeListener()
-        {
-            @Override
-            public void onCameraChange(CameraPosition position)
-            {
-                Log.d("Zoom", "Zoom: " + position.zoom);
-                if(markerId != null){
-                    if(!markerObjectfinal.getArt_type().equals("street_art")) {
-                        if (position.zoom <= 7) {
-                            error_ln.setVisibility(View.GONE);
-                            marker.setVisible(true);
-                        } else {
-                            error_ln.setVisibility(View.VISIBLE);
-                            marker.setVisible(false);
-                        }
-                    }
-                }
-            }
-        };
-    }
+//Remove the zooming restriction
+//    public GoogleMap.OnCameraChangeListener getCameraChangeListener()
+//    {
+//        return new GoogleMap.OnCameraChangeListener()
+//        {
+//            @Override
+//            public void onCameraChange(CameraPosition position)
+//            {
+//                Log.d("Zoom", "Zoom: " + position.zoom);
+//                if(markerId != null){
+//                    if(!markerObjectfinal.getArt_type().equals("street_art")) {
+//                        if (position.zoom <= 7) {
+//                            error_ln.setVisibility(View.GONE);
+//                            marker.setVisible(true);
+//                        } else {
+//                            error_ln.setVisibility(View.VISIBLE);
+//                            marker.setVisible(false);
+//                        }
+//                    }
+//                }
+//            }
+//        };
+//    }
 
     private Location getLastKnownLocation() {
         LocationManager mlocationManager = (LocationManager) this.getApplicationContext()
