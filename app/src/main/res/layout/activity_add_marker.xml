@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.halatrucking.AddMarkerActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Add New Marker"
+            android:textSize="50px"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/ln_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="map"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Location:32/A jump Street"
+                android:textSize="30px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="EDIT"
+                android:textColor="@color/common_red_txt"
+                android:textSize="30px"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/image_upload"
+            android:layout_width="match_parent"
+            android:layout_height="550px"
+            android:scaleType="fitCenter"
+            android:src="@drawable/camera" />
+
+        <Button
+            android:id="@+id/btn_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:layout_marginTop="40px"
+            android:gravity="center"
+            android:text="Capture a Image"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px" />
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:hint="Type Your  Name(Optional)"
+            android:padding="20px"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/et_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:hint="Type a Description(Optional)"
+            android:padding="20px" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:gravity="center"
+            android:text="Submit"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

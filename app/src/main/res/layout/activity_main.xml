@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:layout_below="@+id/bar"
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_above="@+id/linearLayout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="144px"
+        android:background="@color/colorPrimary"
+        android:weightSum="3"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/linearLayout">
+
+        <RelativeLayout
+            android:id="@+id/coupon_layout"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/content_img_coupon"
+                android:layout_width="193px"
+                android:layout_height="109px"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="18px"
+                android:background="@drawable/street_art"
+                android:scaleType="fitXY" />
+
+            <Button
+                android:id="@+id/content_btn_street"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/common_btn_white_selector" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="97px"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorAccent" />
+
+        <RelativeLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/content_img_checkin"
+                android:layout_width="193px"
+                android:layout_height="109px"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="23px"
+                android:background="@drawable/train_art"
+                android:scaleType="fitXY" />
+
+            <Button
+                android:id="@+id/content_btn_train"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/common_btn_white_selector" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="97px"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorAccent" />
+
+        <RelativeLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/content_img_magazine"
+                android:layout_width="193px"
+                android:layout_height="109px"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="16px"
+                android:layout_marginBottom="18px"
+                android:background="@drawable/wall_art"
+                android:scaleType="fitXY" />
+
+            <Button
+                android:id="@+id/content_btn_wall"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/common_btn_white_selector" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>

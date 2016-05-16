@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="45px"
+        android:paddingRight="45px">
+
+        <RelativeLayout
+            android:id="@+id/item_work_rl_root"
+            android:layout_width="match_parent"
+            android:layout_height="750px"
+            android:background="@drawable/common_layout_rounded">
+
+            <Button
+                android:id="@+id/item_work_btn_root"
+                android:layout_width="match_parent"
+                android:layout_height="750px"
+                android:background="@drawable/common_btn_rounded_selector"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="750px"
+                android:orientation="vertical">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/item_work_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="468px"
+                    android:scaleType="fitXY"
+                    app:riv_border_color="@android:color/transparent"
+                    app:riv_border_width="0px" />
+
+                <TextView
+                    android:id="@+id/item_work_tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="34px"
+                    android:layout_marginRight="34px"
+                    android:layout_marginTop="18px"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="7px"
+                    android:maxLines="2"
+                    android:tag="49"
+                    android:textColor="@android:color/black"
+                    android:textSize="49px"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="22px">
+
+                <Button
+                    android:id="@+id/item_work_btn_attend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55px"
+                    android:layout_marginBottom="46px"
+                    android:layout_marginLeft="31px"
+                    android:background="@drawable/selector_common_btn_rounded"
+                    android:paddingLeft="16px"
+                    android:paddingRight="16px"
+                    android:tag="29"
+                    android:textColor="@color/common_red_txt"
+                    android:textSize="29px" />
+
+                <TextView
+                    android:id="@+id/item_work_tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="31px"
+                    android:layout_marginTop="67px"
+                    android:tag="26"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:textSize="26px" />
+
+                <TextView
+                    android:id="@+id/item_work_tv_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/item_work_tv_date"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="3px"
+                    android:layout_marginRight="38px"
+                    android:tag="72"
+                    android:textColor="@color/common_red_txt"
+                    android:textSize="62px"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="45px"
+            android:layout_below="@+id/item_work_rl_root"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+</RelativeLayout>
