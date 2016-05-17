@@ -231,6 +231,8 @@ public class AddMarkerActivity extends AppCompatActivity implements View.OnClick
     public void map(View v) {
         Intent intent = new Intent(AddMarkerActivity.this, MapActivity.class);
         startActivityForResult(intent, 2);
+        overridePendingTransition(R.anim.anim_slide_in_bottom,
+                R.anim.anim_scale_to_center);
     }
 
     @Override

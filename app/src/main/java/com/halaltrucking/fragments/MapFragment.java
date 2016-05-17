@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.halaltrucking.MainActivity;
+import com.halaltrucking.MapActivity;
 import com.halaltrucking.MarkerDetails;
 import com.halaltrucking.R;
 import com.halaltrucking.adapters.WorkAdapter;
@@ -63,7 +65,8 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
     private ListView listView = null;
     public static List<MarkerObject> cluster_markers = new ArrayList<MarkerObject>();
     LinearLayout error_ln = null;
-
+    MarkerObject markerObject_clicked = null;
+    private Button direction = null;
     // Declare a variable for the cluster manager.
     public MapFragment() {
         // Required empty public constructor
@@ -106,6 +109,20 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
             @Override
             public void onClick(View view) {
                 listln.setVisibility(View.GONE);
+            }
+        });
+        direction = (Button) root.findViewById(R.id.btn_direction);
+        direction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(markerObject_clicked != null) {
+                    Intent i = new Intent(getActivity(), MapActivity.class);
+                    i.putExtra("id", markerObject_clicked.getId());
+                    i.putExtra("type", "direction");
+                    startActivity(i);
+                    getActivity().overridePendingTransition(R.anim.anim_slide_in_bottom,
+                            R.anim.anim_scale_to_center);
+                }
             }
         });
         progressBar = (ProgressBar) root.findViewById(R.id.progress);
@@ -358,6 +375,7 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
     public boolean onClusterItemClick(MyItem myItem) {
         MarkerObject markerObject = new MarkerObject();
         markerObject = myItem.getMarkerObj();
+        markerObject_clicked = myItem.getMarkerObj();
         title.setText(markerObject.getArtist_name());
         des.setText(markerObject.getDescription());
         date.setText(markerObject.getUpload_date());

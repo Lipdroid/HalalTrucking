@@ -9,6 +9,7 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class MarkerDetails extends AppCompatActivity {
     MarkerObject markerObjectfinal;
     TextView location, date, type, artist_name, description;
     ImageView imageView;
+    Button showDirecton = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class MarkerDetails extends AppCompatActivity {
         artist_name = (TextView) findViewById(R.id.tv_title);
         description = (TextView) findViewById(R.id.tv_des);
         imageView = (ImageView) findViewById(R.id.image_upload);
+        showDirecton = (Button) findViewById(R.id.btn_direction);
+
 
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
@@ -58,7 +62,20 @@ public class MarkerDetails extends AppCompatActivity {
         type.setText(markerObjectfinal.getArt_type());
         artist_name.setText(markerObjectfinal.getArtist_name());
         description.setText(markerObjectfinal.getDescription());
-        GlobalUtils.sImageLoader.displayImage(markerObjectfinal.getImage_url(),imageView, GlobalUtils.sOptForImgLoader, new ImageLoadingListener() {
+
+        showDirecton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MarkerDetails.this, MapActivity.class);
+                i.putExtra("id", markerObjectfinal.getId());
+                i.putExtra("type", "direction");
+                startActivity(i);
+                overridePendingTransition(R.anim.anim_slide_in_bottom,
+                        R.anim.anim_scale_to_center);
+            }
+        });
+
+        GlobalUtils.sImageLoader.displayImage(markerObjectfinal.getImage_url(), imageView, GlobalUtils.sOptForImgLoader, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
 
@@ -95,9 +112,11 @@ public class MarkerDetails extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
-    public void map(View v){
+    public void map(View v) {
         Intent i = new Intent(this, MapActivity.class);
         i.putExtra("id", markerObjectfinal.getId());
         startActivity(i);

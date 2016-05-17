@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.graffittiapp.MapActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    </android.support.design.widget.AppBarLayout>
+
     <FrameLayout
+        android:layout_below="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -31,19 +48,19 @@
 
     <LinearLayout
         android:id="@+id/error_ln"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/shape"
-        >
+        android:visibility="gone">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="Please Zoom Out,You donot have the permission to see the exact location of the place"
-            android:textStyle="bold"
-            android:textColor="#F00"/>
+            android:textColor="#F00"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <Button
@@ -53,7 +70,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="30px"
         android:gravity="center"
-        android:text="Save this place"
         android:onClick="submit"
+        android:text="Save this place"
         android:textStyle="bold" />
 </RelativeLayout>
