@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -44,6 +46,8 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -128,6 +132,7 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
         progressBar = (ProgressBar) root.findViewById(R.id.progress);
         markerln.setVisibility(View.GONE);
         listln.setVisibility(View.GONE);
+        //no need for this app..search bar is no longer visible
         search_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,6 +192,11 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
         }
         try {
             mGoogleMap.setMyLocationEnabled(true);
+            Location location = getLastKnownLocation();
+            if (location != null) {
+                GlobalUtils.user_lat = location.getLatitude();
+                GlobalUtils.user_lng = location.getLongitude();
+            }
         } catch (SecurityException e) {
             Toast.makeText(getActivity(), "Something wrong with the GPS", Toast.LENGTH_LONG).show();
         }
@@ -222,9 +232,54 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
     }
 
     private void initializeList() {
-        mAdapter = new WorkAdapter(this, cluster_markers);
+        mAdapter = new WorkAdapter(this, sortList(cluster_markers));
         listView.setAdapter(mAdapter);
 
+    }
+
+
+    //sorting list by lat lng
+    public List<MarkerObject> sortList(List<MarkerObject> sortedList){
+        Collections.sort(sortedList, new Comparator<MarkerObject>() {
+            @Override
+            public int compare(MarkerObject o1, MarkerObject o2) {
+
+                Double newest1 = distance(GlobalUtils.user_lat, GlobalUtils.user_lng, Double.parseDouble(o1.getLat()), Double.parseDouble(o1.getLng()));
+                Double newest2 = distance(GlobalUtils.user_lat, GlobalUtils.user_lng, Double.parseDouble(o2.getLat()), Double.parseDouble(o2.getLng()));
+                return newest1.compareTo(newest2);
+            }
+        });
+        return  sortedList;
+    }
+
+    static double distance(double fromLat, double fromLon, double toLat, double toLon) {
+        double radius = 6378137;   // approximate Earth radius, *in meters*
+        double deltaLat = toLat - fromLat;
+        double deltaLon = toLon - fromLon;
+        double angle = 2 * Math.asin( Math.sqrt(
+                Math.pow(Math.sin(deltaLat/2), 2) +
+                        Math.cos(fromLat) * Math.cos(toLat) *
+                                Math.pow(Math.sin(deltaLon/2), 2) ) );
+        return radius * angle;
+    }
+
+    private Location getLastKnownLocation() {
+        LocationManager mlocationManager = (LocationManager) getActivity().getApplicationContext()
+                .getSystemService(getActivity().LOCATION_SERVICE);
+        List<String> providers = mlocationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            Location l = mlocationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null
+                    || l.getAccuracy() < bestLocation.getAccuracy()) {
+                // Found best last known location: %s", l);
+                bestLocation = l;
+            }
+        }
+        return bestLocation;
     }
 
     public void updateMap(String type) {
@@ -247,8 +302,8 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
                     mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(41.259239, -95.9351567), 3));
                     ((MainActivity) getActivity()).from_refresh = false;
                 }
-            } else if (type.equals("street_art")) {
-                for (MarkerObject markerObject : GlobalUtils.street_art) {
+            } else if (type.equals("Food")) {
+                for (MarkerObject markerObject : GlobalUtils.Food) {
 
                     // setMarker(markerObject);
 
@@ -257,8 +312,8 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
 
                 }
 
-            } else if (type.equals("train_art")) {
-                for (MarkerObject markerObject : GlobalUtils.train_art) {
+            } else if (type.equals("Mosques")) {
+                for (MarkerObject markerObject : GlobalUtils.Mosques) {
 
                     // setMarker(markerObject);
                     MyItem offsetItem = new MyItem(Double.parseDouble(markerObject.getLat()), Double.parseDouble(markerObject.getLng()), markerObject);
@@ -266,8 +321,8 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
 
                 }
 
-            } else if (type.equals("wall_art")) {
-                for (MarkerObject markerObject : GlobalUtils.wall_art) {
+            } else if (type.equals("Miscellaneous")) {
+                for (MarkerObject markerObject : GlobalUtils.Miscellaneous) {
 
                     //setMarker(markerObject);
                     MyItem offsetItem = new MyItem(Double.parseDouble(markerObject.getLat()), Double.parseDouble(markerObject.getLng()), markerObject);
@@ -321,7 +376,7 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
         mGoogleMap.setOnCameraChangeListener(GlobalUtils.mClusterManager);
         mGoogleMap.setOnMarkerClickListener(GlobalUtils.mClusterManager);
         //for zoom level limitaions
-//        if (!GlobalUtils.show_marker_types.equals("street_art")) {
+//        if (!GlobalUtils.show_marker_types.equals("Food")) {
 //            mGoogleMap.setOnCameraChangeListener(getCameraChangeListener());
 //        } else {
 //            mGoogleMap.setOnCameraChangeListener(GlobalUtils.mClusterManager);
@@ -346,7 +401,7 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
 //            @Override
 //            public void onCameraChange(CameraPosition position) {
 //                Log.d("Zoom", "Zoom: " + position.zoom);
-//                if (!GlobalUtils.show_marker_types.equals("street_art")) {
+//                if (!GlobalUtils.show_marker_types.equals("Food")) {
 //                    if (position.zoom <= 7) {
 //                        error_ln.setVisibility(View.GONE);
 //                        if (!ischecked) {

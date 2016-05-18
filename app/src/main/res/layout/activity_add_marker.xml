@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40px"
-            android:hint="Type Your  Name(Optional)"
+            android:hint="Type Location Name(Optional)"
             android:padding="20px"
             android:singleLine="true" />
 

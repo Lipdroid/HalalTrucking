@@ -21,16 +21,18 @@ import java.util.List;
  */
 public class GlobalUtils {
     public static List<MarkerObject> all_marker = new ArrayList<MarkerObject>();
-    public static List<MarkerObject> street_art = new ArrayList<MarkerObject>();
-    public static List<MarkerObject> train_art = new ArrayList<MarkerObject>();
-    public static List<MarkerObject> wall_art = new ArrayList<MarkerObject>();
+    public static List<MarkerObject> Food = new ArrayList<MarkerObject>();
+    public static List<MarkerObject> Mosques = new ArrayList<MarkerObject>();
+    public static List<MarkerObject> Miscellaneous = new ArrayList<MarkerObject>();
     public static List<String> artist_name = new ArrayList<String>();
     public static Hashtable<String, MarkerObject> markers = new Hashtable<String, MarkerObject>();
     public static Hashtable<String, Bitmap> images = new Hashtable<String, Bitmap>();
     public static ClusterManager<MyItem> mClusterManager = null;
     public static String show_marker_types = "All";
-
     public static List<MarkerObject> searched_marker = new ArrayList<MarkerObject>();
+
+    public static Double user_lat = null;
+    public static Double user_lng = null;
 
     public static DisplayImageOptions sOptForImgLoader = new DisplayImageOptions.Builder()
             .showImageOnLoading(android.R.color.white).showImageForEmptyUri(R.color.common_gray)

@@ -26,14 +26,14 @@ public class OwnIconRendered extends DefaultClusterRenderer<MyItem> {
 
     @Override
     protected void onBeforeClusterItemRendered(MyItem item, MarkerOptions markerOptions) {
-        if(item.getMarkerObj().getArt_type().equals("street_art")){
-            BitmapDescriptor marker = BitmapDescriptorFactory.fromResource(R.drawable.marker_default);
+        if(item.getMarkerObj().getArt_type().equals("Food")){
+            BitmapDescriptor marker = BitmapDescriptorFactory.fromResource(R.drawable.pin_food);
             markerOptions.icon(marker);
-        }else if(item.getMarkerObj().getArt_type().equals("train_art")){
-            BitmapDescriptor marker = BitmapDescriptorFactory.fromResource(R.drawable.marker_default);
+        }else if(item.getMarkerObj().getArt_type().equals("Mosques")){
+            BitmapDescriptor marker = BitmapDescriptorFactory.fromResource(R.drawable.pin_mosque);
             markerOptions.icon(marker);
-        }else if(item.getMarkerObj().getArt_type().equals("wall_art")){
-            BitmapDescriptor marker = BitmapDescriptorFactory.fromResource(R.drawable.marker_default);
+        }else if(item.getMarkerObj().getArt_type().equals("Miscellaneous")){
+            BitmapDescriptor marker = BitmapDescriptorFactory.fromResource(R.drawable.pin_miscel);
             markerOptions.icon(marker);
         }
 

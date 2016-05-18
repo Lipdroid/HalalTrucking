@@ -1,7 +1,9 @@
 package com.halaltrucking;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -15,12 +17,20 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.halaltrucking.fragments.ListFragment;
 import com.halaltrucking.fragments.MapFragment;
@@ -29,6 +39,7 @@ import com.halaltrucking.utils.ConstantURLs;
 import com.halaltrucking.utils.CorrectSizeUtil;
 import com.halaltrucking.utils.GlobalUtils;
 import com.halaltrucking.utils.JSONParser;
+import com.halaltrucking.utils.MultipleScreen;
 import com.halaltrucking.utils.SCImageUtils;
 
 import org.apache.http.NameValuePair;
@@ -56,9 +67,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<Object> listParams = new ArrayList<Object>();
     ArrayList<Map.Entry<String, Bitmap>> bitmapParams = new ArrayList<Map.Entry<String, Bitmap>>();
     ArrayList<NameValuePair> nameValueParams = new ArrayList<NameValuePair>();
-    private Button street_art = null;
-    private Button train_art = null;
-    private Button wall_art = null;
+    private Button Food = null;
+    private Button Mosques = null;
+    private Button Miscellaneous = null;
     AlertDialog alertDialog;
     public boolean from_refresh = false;
 
@@ -68,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         new SCImageUtils(MainActivity.this);
-        street_art = (Button) findViewById(R.id.content_btn_street);
-        train_art = (Button) findViewById(R.id.content_btn_train);
-        wall_art = (Button) findViewById(R.id.content_btn_wall);
+        Food = (Button) findViewById(R.id.content_btn_street);
+        Mosques = (Button) findViewById(R.id.content_btn_train);
+        Miscellaneous = (Button) findViewById(R.id.content_btn_wall);
 
         //request for retrieving all the markers
         new RequestForAllMarkers().execute();
@@ -87,9 +98,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        street_art.setOnClickListener(this);
-        train_art.setOnClickListener(this);
-        wall_art.setOnClickListener(this);
+        Food.setOnClickListener(this);
+        Mosques.setOnClickListener(this);
+        Miscellaneous.setOnClickListener(this);
 
         //Init variable
         mCorrectSize = CorrectSizeUtil.getInstance(this);
@@ -101,9 +112,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 3) {
             GlobalUtils.all_marker.clear();
-            GlobalUtils.train_art.clear();
-            GlobalUtils.wall_art.clear();
-            GlobalUtils.street_art.clear();
+            GlobalUtils.Mosques.clear();
+            GlobalUtils.Miscellaneous.clear();
+            GlobalUtils.Food.clear();
             GlobalUtils.artist_name.clear();
             GlobalUtils.images.clear();
             GlobalUtils.mClusterManager.clearItems();
@@ -128,30 +139,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.content_btn_street:
-                GlobalUtils.show_marker_types = "street_art";
+                GlobalUtils.show_marker_types = "Food";
                 if (mapFragment != null) {
-                    mapFragment.updateMap("street_art");
+                    mapFragment.updateMap("Food");
                 }
                 if (listFragment != null) {
-                    listFragment.updateList("street_art");
+                    listFragment.updateList("Food");
                 }
                 break;
             case R.id.content_btn_train:
-                GlobalUtils.show_marker_types = "train_art";
+                GlobalUtils.show_marker_types = "Mosques";
                 if (mapFragment != null) {
-                    mapFragment.updateMap("train_art");
+                    mapFragment.updateMap("Mosques");
                 }
                 if (listFragment != null) {
-                    listFragment.updateList("train_art");
+                    listFragment.updateList("Mosques");
                 }
                 break;
             case R.id.content_btn_wall:
-                GlobalUtils.show_marker_types = "wall_art";
+                GlobalUtils.show_marker_types = "Miscellaneous";
                 if (mapFragment != null) {
-                    mapFragment.updateMap("wall_art");
+                    mapFragment.updateMap("Miscellaneous");
                 }
                 if (listFragment != null) {
-                    listFragment.updateList("wall_art");
+                    listFragment.updateList("Miscellaneous");
                 }
                 break;
         }
@@ -198,37 +209,86 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
-                //your about code here
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        this);
+                //about code
+                final Dialog dialog = new Dialog(this, R.style.CustomDialogTheme);
+                LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View v = inflator.inflate(R.layout.layout_show_info_dialog, null);
 
-                // set title
-                alertDialogBuilder.setTitle("About");
+                new MultipleScreen(this);
+                MultipleScreen.resizeAllView((ViewGroup) v);
 
-                // set dialog message
-                alertDialogBuilder
-                        .setMessage("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
-                        .setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // if this button is clicked, close
-                                // current activity
-                                alertDialog.dismiss();
-                            }
-                        });
+                dialog.setContentView(v);
 
-                // create alert dialog
-                alertDialog = alertDialogBuilder.create();
 
-                // show it
-                alertDialog.show();
+                // set the custom dialog components - text, image and button
+                Button btnOK = (Button) dialog.findViewById(R.id.dialog_btn_positive);
+                TextView tvTitle = (TextView) dialog.findViewById(R.id.dialog_tv_title);
+                TextView tvBody_one = (TextView) dialog.findViewById(R.id.dialog_tv_body_one);
+                TextView tvBody_two = (TextView) dialog.findViewById(R.id.dialog_tv_body_two);
+                TextView tvBody_three = (TextView) dialog.findViewById(R.id.dialog_tv_body_three);
+                TextView tvBody_four = (TextView) dialog.findViewById(R.id.dialog_tv_body_four);
+
+                tvBody_one.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent mIntent = new Intent(MainActivity.this, WebviewActivity.class);
+                        mIntent.putExtra("url", "http://connect2.delta.com/");
+                        startActivity(mIntent);
+                        overridePendingTransition(R.anim.anim_slide_in_bottom,
+                                R.anim.anim_scale_to_center);
+                    }
+                });
+                tvBody_two.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent mIntent = new Intent(MainActivity.this, WebviewActivity.class);
+                        mIntent.putExtra("url", "http://skynet.ual.com/");
+                        startActivity(mIntent);
+                        overridePendingTransition(R.anim.anim_slide_in_bottom,
+                                R.anim.anim_scale_to_center);
+                    }
+                });
+
+                tvBody_three.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent mIntent = new Intent(MainActivity.this, WebviewActivity.class);
+                        mIntent.putExtra("url", "https://wings.usairways.com/uswings/travel/myid_travel_new_home");
+                        startActivity(mIntent);
+                        overridePendingTransition(R.anim.anim_slide_in_bottom,
+                                R.anim.anim_scale_to_center);
+                    }
+                });
+                tvBody_four.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent mIntent = new Intent(MainActivity.this, WebviewActivity.class);
+                        mIntent.putExtra("url", "http://www.skywestonline.com/");
+                        startActivity(mIntent);
+                        overridePendingTransition(R.anim.anim_slide_in_bottom,
+                                R.anim.anim_scale_to_center);
+                    }
+                });
+
+                tvTitle.setText("About");
+
+                // if button is clicked, close the custom dialog
+                btnOK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
                 return true;
             case R.id.refresh:
                 //your code here
                 GlobalUtils.all_marker.clear();
-                GlobalUtils.train_art.clear();
-                GlobalUtils.wall_art.clear();
-                GlobalUtils.street_art.clear();
+                GlobalUtils.Mosques.clear();
+                GlobalUtils.Miscellaneous.clear();
+                GlobalUtils.Food.clear();
                 GlobalUtils.images.clear();
                 GlobalUtils.artist_name.clear();
                 GlobalUtils.mClusterManager.clearItems();
@@ -238,9 +298,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             case R.id.exit:
                 GlobalUtils.all_marker.clear();
-                GlobalUtils.train_art.clear();
-                GlobalUtils.wall_art.clear();
-                GlobalUtils.street_art.clear();
+                GlobalUtils.Mosques.clear();
+                GlobalUtils.Miscellaneous.clear();
+                GlobalUtils.Food.clear();
                 GlobalUtils.images.clear();
                 GlobalUtils.artist_name.clear();
                 GlobalUtils.mClusterManager.clearItems();
@@ -352,12 +412,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 GlobalUtils.all_marker.add(marker);
 
-                if (marker.getArt_type().equals("street_art")) {
-                    GlobalUtils.street_art.add(marker);
-                } else if (marker.getArt_type().equals("train_art")) {
-                    GlobalUtils.train_art.add(marker);
-                } else if (marker.getArt_type().equals("wall_art")) {
-                    GlobalUtils.wall_art.add(marker);
+                if (marker.getArt_type().equals("Food")) {
+                    GlobalUtils.Food.add(marker);
+                } else if (marker.getArt_type().equals("Mosques")) {
+                    GlobalUtils.Mosques.add(marker);
+                } else if (marker.getArt_type().equals("Miscellaneous")) {
+                    GlobalUtils.Miscellaneous.add(marker);
                 }
 
             }

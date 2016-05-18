@@ -181,7 +181,7 @@ public class MapActivity extends AppCompatActivity {
 //            {
 //                Log.d("Zoom", "Zoom: " + position.zoom);
 //                if(markerId != null){
-//                    if(!markerObjectfinal.getArt_type().equals("street_art")) {
+//                    if(!markerObjectfinal.getArt_type().equals("Food")) {
 //                        if (position.zoom <= 7) {
 //                            error_ln.setVisibility(View.GONE);
 //                            marker.setVisible(true);
@@ -330,7 +330,7 @@ public class MapActivity extends AppCompatActivity {
                 Marker destination = mGoogleMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(markerObjectfinal.getLat()), Double.parseDouble(markerObjectfinal.getLng())))
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_default))
-                        .title("DATE: " + markerObjectfinal.getUpload_date())
+                        .title("DATE: " + markerObjectfinal.getArtist_name())
                         .snippet(" DESCRIPTION: " + markerObjectfinal.getDescription()));
             }catch (NullPointerException e) {
                 Log.e("Error",

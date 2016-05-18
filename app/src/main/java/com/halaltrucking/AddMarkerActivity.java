@@ -71,7 +71,7 @@ public class AddMarkerActivity extends AppCompatActivity implements View.OnClick
     ArrayList<Object> listParams = new ArrayList<Object>();
     String str_title = null;
     String str_description = null;
-    String str_type = "street_art";
+    String str_type = "Food";
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -154,9 +154,9 @@ public class AddMarkerActivity extends AppCompatActivity implements View.OnClick
         loc = (TextView) findViewById(R.id.tv_location);
         // Spinner Drop down elements
         final List<String> categories = new ArrayList<String>();
-        categories.add("street_art");
-        categories.add("train_art");
-        categories.add("wall_art");
+        categories.add("Food");
+        categories.add("Mosques");
+        categories.add("Miscellaneous");
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);

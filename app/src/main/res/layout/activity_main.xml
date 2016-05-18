@@ -54,7 +54,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="18px"
-                android:background="@drawable/street_art"
+                android:background="@drawable/pin_food"
                 android:scaleType="fitXY" />
 
             <Button
@@ -83,7 +83,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="23px"
-                android:background="@drawable/train_art"
+                android:background="@drawable/pin_mosque"
                 android:scaleType="fitXY" />
 
             <Button
@@ -113,7 +113,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="16px"
                 android:layout_marginBottom="18px"
-                android:background="@drawable/wall_art"
+                android:background="@drawable/pin_miscel"
                 android:scaleType="fitXY" />
 
             <Button
