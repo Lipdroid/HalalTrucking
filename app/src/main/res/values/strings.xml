@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Halal Trucking</string>
     <!--debug key-->
-    <string name="map_api">AIzaSyDu7c5lPeT9fnnTu8EsqlB62uz_TyDu1YY</string>
+    <!--<string name="map_api">AIzaSyDu7c5lPeT9fnnTu8EsqlB62uz_TyDu1YY</string>-->
     <!--release key-->
-   <!-- <string name="map_api">AIzaSyBuyhO6Hx2TtF7nBszIalyH8xqb6YR5MVo</string>-->
+    <string name="map_api">AIzaSyCSNY95kBnIx2KTp8r8TcX-y19-nVWQo8Q</string>
     <string name="title_activity_add_marker">Add marker</string>
     <string name="dialog_choose_image_title">Select Image</string>
 

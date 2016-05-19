@@ -1,6 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('E:/Source/GraffittiApp/halaltrucking.jks')
+            keyAlias 'halaltrucking'
+            keyPassword 'halaltrucking2016'
+            storePassword 'halaltrucking2016'
+        }
+        release {
+            storeFile file('E:/Source/GraffittiApp/halaltrucking.jks')
+            keyAlias 'halaltrucking'
+            keyPassword 'halaltrucking2016'
+            storePassword 'halaltrucking2016'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
