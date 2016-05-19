@@ -5,6 +5,8 @@ package com.halaltrucking.utils;
  */
 public class ConstantURLs {
 
-    public static String base_url = "http://benching.theyard.space/api/index.php";
+    //public static String base_url = "http://benching.theyard.space/api/index.php";
+    public static String base_url = "http://halaltrucking.theyard.space/api/index.php";
+
 
 }
